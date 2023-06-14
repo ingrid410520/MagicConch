@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:magic_conch/Screen/Anyword.dart';
 
 import 'Screen/Home.dart';
 
@@ -15,9 +16,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "결정장애 브레이커",
+      title: "마법의 소라에몬",
+      darkTheme: ThemeData.dark(),
+      debugShowCheckedModeBanner: false,
       routes: {
         '/home': (context) => AppHome(),
+        '/Anyword' : (context) => Screen_Anyword(),
 
       },
       initialRoute: '/home',
