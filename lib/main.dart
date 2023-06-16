@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         '/home': (context) => AppHome(),
-        '/Anyword' : (context) => Screen_Anyword(),
+        '/anyword' : (context) => Screen_Anyword(),
 
       },
       initialRoute: '/home',
