@@ -1,8 +1,6 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:magic_conch/Function/Build_MyScreen.dart';
-
+List listStringCount = [];
 class Screen_Anyword extends StatefulWidget {
   Screen_Anyword({Key? key}) : super(key: key);
 
@@ -25,14 +23,21 @@ class Screen_Anyword extends StatefulWidget {
     "내로남불",
   ];
 
+
   @override
   State<Screen_Anyword> createState() => _Screen_AnywordState();
 }
 
 class _Screen_AnywordState extends State<Screen_Anyword> {
-  String Test = "Ready !!";
+  String strShow = "Ready !!";
 
   @override
+  void initState() {
+    super.initState();
+    listStringCount =
+        List.filled(Screen_Anyword().listString.length, 0, growable: true);
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -43,25 +48,24 @@ class _Screen_AnywordState extends State<Screen_Anyword> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text("Image"),
-                Text(Test),
-                ElevatedButton.icon(
-                  icon: Icon(Icons.play_arrow_rounded),
-                  label: Text('Play'),
-                  onPressed: () {
-                    Test = "Check !!";
-                    // String newString = "";
-                    // do {
-                    //   newString = Screen_Anyword().listString[
-                    //       Random().nextInt(Screen_Anyword().listString.length)];
-                    // } while (Test != newString);
-                    // Test = newString;
-                  },
-                ),
-              ],
+            Text("Image"),
+            Text(strShow),
+            ElevatedButton.icon(
+              icon: Icon(Icons.play_arrow_rounded),
+              label: Text('Play'),
+              onPressed: () {
+                setState(() {
+                  String newString = "";
+                  int maxNum = Screen_Anyword().listString.length;
+                  int rNum = 0;
+                  do {
+                    rNum = Random().nextInt(maxNum);
+                    newString = Screen_Anyword().listString[rNum];
+                  } while (strShow == newString);
+                  strShow = newString;
+                  listStringCount[rNum]++;
+                });
+              },
             ),
             SizedBox(height: 10.0),
             ElevatedButton.icon(
@@ -75,6 +79,8 @@ class _Screen_AnywordState extends State<Screen_Anyword> {
                 }
               },
             ),
+            Text(listStringCount.toString())
+
           ],
         ),
       ),
