@@ -17,14 +17,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "마법의 소라에몬",
-      darkTheme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
+      //theme: ThemeData(),
+      //darkTheme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+      //themeMode: ThemeMode.system,
       routes: {
         '/home': (context) => AppHome(),
         '/anyword' : (context) => Screen_Anyword(),
 
       },
       initialRoute: '/home',
-    );
+    );;
   }
 }

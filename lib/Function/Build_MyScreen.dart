@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:magic_conch/main.dart';
+import 'package:get/get.dart';
 
 class BuildMyScreen extends StatefulWidget {
-  BuildMyScreen({
-    required this.strTitle,
-    required this.widBody
-  });
+  BuildMyScreen({required this.strTitle, required this.widBody});
 
   String strTitle;
   Widget widBody;
@@ -21,7 +20,6 @@ class _BuildMyScreenState extends State<BuildMyScreen> {
           title: Text(widget.strTitle),
           backgroundColor: Colors.blueAccent,
         ),
-        body: widget.widBody
-    );
+        body: widget.widBody);
   }
 }

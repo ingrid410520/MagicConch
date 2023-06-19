@@ -17,26 +17,49 @@ class _AppHomeState extends State<AppHome> {
       strTitle: '마법의 소라에몬 : 결정장애 브레이커',
       widBody: Center(
         child: Container(
-          margin: EdgeInsets.symmetric(vertical: 50, horizontal: 100),
-          padding: const EdgeInsets.symmetric(horizontal: 100.0),
+          margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Container(
-                  margin: EdgeInsets.symmetric(horizontal: 50, vertical: 50),
-                  child: Image.asset('assets/images/pixelsora.png')),
-              Button_Home(
-                  strName: "아무말 대잔치",
-                  ButtonFunction: () {
-                    Navigator.pushNamed(context, '/anyword');
-                  }),
-              SizedBox(height: 10),
-              Button_Home(strName: "룰렛 돌리기", ButtonFunction: () {}),
-              SizedBox(height: 10),
-              Button_Home(strName: "폭탄 돌리기", ButtonFunction: () {}),
-              SizedBox(height: 10),
-              Button_Home(strName: "만든이", ButtonFunction: () {}),
-              SizedBox(height: 10),
+              Expanded(
+                flex: 3,
+                child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    child: Image.asset('assets/images/pixelsora.png')),
+              ),
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Button_Home(
+                      strName: "아무말 대잔치",
+                      ButtonFunction: () {
+                        Navigator.pushNamed(context, '/anyword');
+                      }),
+                ),
+              ),
+              Expanded(
+                  flex: 1,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Button_Home(
+                        strName: "룰렛 돌리기 (준비중)", ButtonFunction: () {}),
+                  )),
+              Expanded(
+                  flex: 1,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Button_Home(
+                        strName: "폭탄 돌리기 (준비중)", ButtonFunction: () {}),
+                  )),
+              Expanded(
+                  flex: 1,
+                  child:
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Button_Home(strName: "만든이 (준비중)", ButtonFunction: () {}),
+                      )),
             ],
           ),
         ),
