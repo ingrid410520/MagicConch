@@ -3,10 +3,15 @@ import 'package:magic_conch/main.dart';
 import 'package:get/get.dart';
 
 class BuildMyScreen extends StatefulWidget {
-  BuildMyScreen({required this.strTitle, required this.widBody});
+  BuildMyScreen({
+    required this.strTitle,
+    required this.widBody,
+    this.action,
+  });
 
-  String strTitle;
-  Widget widBody;
+  final String strTitle;
+  final Widget widBody;
+  final List<Widget>? action;
 
   @override
   State<BuildMyScreen> createState() => _BuildMyScreenState();
@@ -19,6 +24,7 @@ class _BuildMyScreenState extends State<BuildMyScreen> {
         appBar: AppBar(
           title: Text(widget.strTitle),
           backgroundColor: Colors.blueAccent,
+          actions: widget.action
         ),
         body: widget.widBody);
   }

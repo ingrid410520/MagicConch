@@ -60,8 +60,8 @@ class AnswerManager {
   }
 
   Future<String> readAnswer() async {
+    final file = File('$_path/$_fileName');
     try {
-      final file = File('$_path/$_fileName');
       print('Read as string');
       return file.readAsString();
     } catch (e) {
