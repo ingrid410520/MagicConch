@@ -32,8 +32,9 @@ class _Screen_AnywordState extends State<Screen_Anyword> {
     return BuildMyScreen(
         strTitle: "아무말 대잔치",
         action: [
-          IconButton(
-              icon: Icon(Icons.settings_rounded),
+          ElevatedButton.icon(
+              icon: Icon(Icons.settings_rounded,),
+              label: Text("Setting"),
               onPressed: () {
                 Navigator.pushNamed(context, "/anyword_setting");
               })
