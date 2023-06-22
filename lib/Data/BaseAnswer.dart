@@ -228,7 +228,23 @@ Map mapBaseAnswer = {
   "날짜": {
     "bShow": false,
     "Answer": [
-      [ true, "Test", ],
+      [ true, "Test1", ],
+      [ true, "Test2", ],
+      [ true, "Test3", ],
+      [ true, "Test4", ],
+      [ true, "Test5", ],
+      [ true, "Test6", ],
+      [ true, "Test7", ],
+      [ true, "Test8", ],
+      [ true, "Test9", ],
+      [ true, "Test11", ],
+      [ true, "Test12", ],
+      [ true, "Test13", ],
+      [ true, "Test14", ],
+      [ true, "Test15", ],
+      [ true, "Test16", ],
+      [ true, "Test17", ],
+      [ true, "Test18", ],
     ]
   },
   "인물": {
