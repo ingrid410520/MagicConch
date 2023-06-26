@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-//import 'package:magic_conch/Data/BaseAnswer.dart';
 import 'package:magic_conch/Data/DataManager.dart';
 import 'package:magic_conch/Function/Build_MyScreen.dart';
 import '../Function/Build_MyButton_ScreenBack.dart';
 
 Map vAnyword = DataManager.mapLoadAnyword;
+DataManager vDataManager = DataManager();
 
 class Screen_AnywordSetting extends StatefulWidget {
   const Screen_AnywordSetting({Key? key}) : super(key: key);
@@ -95,18 +95,3 @@ class _Screen_AnywordSettingState extends State<Screen_AnywordSetting> {
         ));
   }
 }
-
-ListTile AnswerGroup(
-  bool bCheck,
-  String strGroupName,
-  Color cColor,
-) =>
-    ListTile(
-      leading: Checkbox(
-        value: bCheck,
-        onChanged: (value) {},
-      ),
-      tileColor: cColor,
-      titleTextStyle: TextStyle(color: Colors.black),
-      title: Text(strGroupName),
-    );

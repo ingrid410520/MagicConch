@@ -136,7 +136,7 @@ Map mapBaseAnswer = {
         "걔도 너 좋아해",
       ],
       [
-        true,
+        false,
         "거울 보고 다시 생각해 봐",
       ],
       [
@@ -173,7 +173,7 @@ Map mapBaseAnswer = {
     "bShow": false,
     "Answer": [
       [ true, "줄건 줘",],
-      [ true, "인내심은 일단 갖추고 볼 일이다",],
+      [ false, "인내심은 일단 갖추고 볼 일이다",],
       [ true, "콩 한쪽이라도 나눠먹자",],
       [ true, "포기란 배추 셀 때나 쓰는 말",],
       [ true, "부모님 생각해",],
