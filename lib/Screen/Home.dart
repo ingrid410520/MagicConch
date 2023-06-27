@@ -44,7 +44,10 @@ class _AppHomeState extends State<AppHome> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Button_Home(
-                        strName: "룰렛 돌리기 (준비중)", ButtonFunction: () {}),
+                        strName: "룰렛 돌리기 (테스트 필드)",
+                        ButtonFunction: () {
+                          Navigator.pushNamed(context, '/testfiled');
+                        }),
                   )),
               Expanded(
                   flex: 1,
@@ -55,11 +58,11 @@ class _AppHomeState extends State<AppHome> {
                   )),
               Expanded(
                   flex: 1,
-                  child:
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Button_Home(strName: "만든이 (준비중)", ButtonFunction: () {}),
-                      )),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Button_Home(
+                        strName: "만든이 (준비중)", ButtonFunction: () {}),
+                  )),
             ],
           ),
         ),

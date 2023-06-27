@@ -3,35 +3,47 @@ import 'package:magic_conch/Data/BaseAnswer.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:convert';
 
-class MessageStorage {
-  final _fileName;
-  String _path = "";
+class FileManager {
+  String _fileName = "/soraemon.txt";
+  String _Route = "";
+  String _Path = "";
+  static final FileManager _inst = FileManager.construction();
 
-  MessageStorage(this._fileName) {
-    init();
+  FileManager.construction() {}
+
+  factory FileManager() {
+    return _inst;
   }
 
-  void init() async {
-    final directory = await getApplicationDocumentsDirectory();
-    _path = directory.path;
+  Future<String> getRoute() async {
+    Directory __Route = await getApplicationDocumentsDirectory();
+    _Route = __Route.path;
+    _Path = _Route + _fileName;
+    return _Route;
   }
 
-  Future<String> readFile() async {
-    try {
-      final file = File('$_path/$_fileName');
-      return file.readAsString();
-    } catch (e) {
-      return e.toString();
-    }
+  Future<String> read(String _strRoute, String _strFileName) async {
+    final _val = File(_strRoute + _strFileName);
+    return await _val.readAsString();
   }
 
-  Future<void> writeFile(String message) async {
-    try {
-      final file = File('$_path/$_fileName');
-      file.writeAsString(message);
-    } catch (e) {
-      print(e);
-    }
+  Future<String> read_auto() async {
+    final _R = await getApplicationDocumentsDirectory();
+    String getString = await File(_R.path+_fileName).readAsString();
+
+    return getString;
+  }
+
+  Future<String> write(String _strRoute, String _strFileName, String _msg) async {
+    final _val = File(_strRoute+_strFileName);
+    String result = await _val.writeAsString(_msg).toString();
+    return result!;
+  }
+
+  Future<String> write_auto(String _msg) async {
+    final _R = await getApplicationDocumentsDirectory();
+    String _strVal = await File(_R.path + _fileName).writeAsString(_msg).toString();
+    return _strVal;
   }
 }
 
@@ -51,7 +63,6 @@ class AnswerManager {
   }
 
   List getAnswer() {
-
     return _baselist;
   }
 

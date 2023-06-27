@@ -29,11 +29,13 @@ class DataManager {
 
     List result = List.empty(growable: true);
 
-
-
     if (!vMap.isEmpty) {
       //result = List.empty(growable: true);
       for (var value in vMap.values) {
+        if (value['bShow'] == true) {
+          print("OK");
+        }
+
         var vData = value['Answer'];
         Test3 += vData.toString();
         if (vData[0][0].toString() == "true") {

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:magic_conch/Screen/Anyword.dart';
 import 'package:magic_conch/Screen/AnywordSetting.dart';
+import 'package:magic_conch/Screen/Testfield.dart';
 
 import 'Screen/Home.dart';
 
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => AppHome(),
         '/anyword' : (context) => Screen_Anyword(),
         '/anyword_setting' : (context) => Screen_AnywordSetting(),
+        '/testfiled' : (context) => Testfield(),
 
       },
       initialRoute: '/home',
