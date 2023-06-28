@@ -12,8 +12,10 @@ Map mapAnswer = {};
 
 class Screen_Anyword extends StatefulWidget {
   Screen_Anyword({Key? key}) : super(key: key);
+
   // Load Answer list
-  final List listString = vAnswerManager.getAnswer();
+  //final List listString = vAnswerManager.getAnswer();
+  final List listString = DataManager().GetAnyword_List();
 
   @override
   State<Screen_Anyword> createState() => _Screen_AnywordState();
@@ -36,7 +38,9 @@ class _Screen_AnywordState extends State<Screen_Anyword> {
         strTitle: "아무말 대잔치",
         action: [
           ElevatedButton.icon(
-              icon: Icon(Icons.settings_rounded,),
+              icon: Icon(
+                Icons.settings_rounded,
+              ),
               label: Text("Setting"),
               onPressed: () {
                 Navigator.pushNamed(context, "/anyword_setting");
@@ -59,7 +63,10 @@ class _Screen_AnywordState extends State<Screen_Anyword> {
                     )
                   ],
                 ),
-                Text(strShow, style: TextStyle(fontSize: 20)),
+                Container(
+                    alignment: Alignment.center,
+                    height: 50,
+                    child: Text(strShow, style: TextStyle(fontSize: 20))),
                 ElevatedButton.icon(
                   icon: Icon(Icons.play_arrow_rounded),
                   label: Text('Play'),
@@ -77,8 +84,9 @@ class _Screen_AnywordState extends State<Screen_Anyword> {
                     });
                   },
                 ),
+                Text("Total String : ${listStringCount.length}"),
                 SizedBox(height: 10.0),
-                Text(DataManager().Teststr()),
+                //Text(DataManager().Teststr()),
                 SizedBox(height: 10.0),
                 Button_Screenback(routename: '/home'),
                 // ElevatedButton.icon(

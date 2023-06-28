@@ -64,17 +64,25 @@ class DataManager {
   }
 
   List GetAnyword_List() {
-    List result = List.empty(growable: true);
-    if (!mapLoadAnyword.isEmpty) {
-      result = List.empty(growable: true);
-      for (var value in mapLoadAnyword.values) {
-        var vData = value['Answer'];
+    var vMap = mapLoadAnyword;
 
-        if (vData[0]) {
-          result.add(vData[1]);
+    List result = List.empty(growable: true);
+
+    if (!vMap.isEmpty) {
+      for (var value in vMap.values) {
+        if (value['bShow'].toString() == "true") {
+          //print("OK");
+          List vData = value['Answer'];
+
+          for (var vSlot in vData) {
+            if (vSlot[0].toString() == "true") {
+              result.add(vSlot[1]);
+            }
+          }
         }
       }
     }
+
     return result;
   }
 

@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:magic_conch/Screen/Anyword.dart';
 import 'package:magic_conch/Screen/AnywordSetting.dart';
 import 'package:magic_conch/Screen/Testfield.dart';
@@ -14,7 +15,6 @@ void main()
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,6 +32,12 @@ class MyApp extends StatelessWidget {
 
       },
       initialRoute: '/home',
-    );;
+    );
   }
+
+  Future<InitializationStatus> _initGoogleMobileAds() {
+    // TODO: Initialize Google Mobile Ads SDK
+    return MobileAds.instance.initialize();
+  }
+
 }
