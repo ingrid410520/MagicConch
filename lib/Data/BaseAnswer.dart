@@ -208,9 +208,9 @@ Map mapBaseAnswer = {
     ]
   },
   "음식": {
-    "bShow": false,
+    "bShow": true,
     "Answer": [
-      [ true, "Test", ],
+      [ true, "음식1", ],
     ]
   },
   "선택": {
@@ -226,7 +226,7 @@ Map mapBaseAnswer = {
     ]
   },
   "날짜": {
-    "bShow": false,
+    "bShow": true,
     "Answer": [
       [ true, "Test1", ],
       [ true, "Test2", ],

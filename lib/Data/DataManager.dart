@@ -32,15 +32,24 @@ class DataManager {
     if (!vMap.isEmpty) {
       //result = List.empty(growable: true);
       for (var value in vMap.values) {
-        if (value['bShow'] == true) {
+        if (value['bShow'].toString() == "true") {
           print("OK");
-        }
+          List vData = value['Answer'];
+          Test3 += vData.toString();
 
-        var vData = value['Answer'];
-        Test3 += vData.toString();
-        if (vData[0][0].toString() == "true") {
-          Test4 += vData[0][1].toString();
-          result.add(vData[0][1]);
+          // vData.forEach((element) {
+          //   if (element[0].toString() == "true") {
+          //     Test4 += element[0].toString();
+          //     result.add(element[1]);
+          //   }
+          // });
+
+          for (var vSlot in vData) {
+            if (vSlot[0].toString() == "true") {
+              Test4 += vSlot[0].toString();
+              result.add(vSlot[1]);
+            }
+          }
         }
       }
     }
