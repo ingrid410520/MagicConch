@@ -26,6 +26,7 @@ class _BuildMyScreenState extends State<BuildMyScreen> {
           backgroundColor: Colors.blueAccent,
           actions: widget.action
         ),
+        resizeToAvoidBottomInset: false,
         body: widget.widBody);
   }
 }

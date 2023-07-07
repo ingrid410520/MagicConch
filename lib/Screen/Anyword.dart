@@ -46,78 +46,100 @@ class _Screen_AnywordState extends State<Screen_Anyword> {
                 Navigator.pushNamed(context, "/anyword_setting");
               })
         ],
-        widBody: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(
-                  children: [
-                    Image.asset('assets/images/pixelsora.png'),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      "마법의 소라에몬",
-                      style: TextStyle(fontSize: 30),
-                    )
-                  ],
-                ),
-                Container(
-                    alignment: Alignment.center,
-                    height: 50,
-                    child: Text(strShow, style: TextStyle(fontSize: 20))),
-                ElevatedButton.icon(
-                  icon: Icon(Icons.play_arrow_rounded),
-                  label: Text('Play'),
-                  onPressed: () {
-                    setState(() {
-                      String newString = "";
-                      int maxNum = Screen_Anyword().listString.length;
-                      int rNum = 0;
-                      do {
-                        rNum = Random().nextInt(maxNum);
-                        newString = Screen_Anyword().listString[rNum];
-                      } while (strShow == newString);
-                      strShow = newString;
-                      listStringCount[rNum]++;
-                    });
-                  },
-                ),
-                Text("Total String : ${listStringCount.length}"),
-                SizedBox(height: 10.0),
-                //Text(DataManager().Teststr()),
-                SizedBox(height: 10.0),
-                Button_Screenback(routename: '/home'),
-                // ElevatedButton.icon(
-                //   icon: Icon(Icons.arrow_back_rounded),
-                //   label: Text("back to main"),
-                //   onPressed: () {
-                //     if (Navigator.canPop(context)) {
-                //       Navigator.pop(context);
-                //     } else {
-                //       Navigator.popAndPushNamed(context, '/home');
-                //     }
-                //   },
-                // ),
-                Visibility(
-                  visible: false,
-                  child: Column(
-                    children: [
-                      Text(
-                        "Total String : ${listStringCount.length}",
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 150),
-                        margin: EdgeInsetsDirectional.symmetric(
-                            horizontal: 20, vertical: 20),
-                        child: Text("$listStringCount"),
-                      )
-                    ],
+        widBody: buildAnywordBody());
+  }
+
+  Container buildAnywordBody() {
+    return Container(
+      height: double.maxFinite,
+      margin: EdgeInsets.symmetric(vertical: 100, horizontal: 100),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            buildTopimage(),
+            buildShowString(),
+            buildPlayButton(),
+            Flexible(child: Button_Screenback(routename: '/home')),
+            //buildDebug_CountAnyword(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Flexible buildDebug_CountAnyword() {
+    return Flexible(
+            child: Visibility(
+              visible: true,
+              child: Column(
+                children: [
+                  Text(
+                    "Total String : ${listStringCount.length}",
                   ),
-                ),
-              ],
+                  Container(
+                    child: Text("$listStringCount"),
+                  )
+                ],
+              ),
             ),
+          );
+  }
+
+  Flexible buildPlayButton() {
+    return Flexible(
+      child: Column(
+        children: [
+          Flexible(
+            child: ElevatedButton.icon(
+              icon: Icon(Icons.play_arrow_rounded),
+              label: Text('Play'),
+              onPressed: () {
+                setState(() {
+                  String newString = "";
+                  int maxNum = Screen_Anyword().listString.length;
+                  int rNum = 0;
+                  do {
+                    rNum = Random().nextInt(maxNum);
+                    newString = Screen_Anyword().listString[rNum];
+                  } while (strShow == newString);
+                  strShow = newString;
+                  listStringCount[rNum]++;
+                });
+              },
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Text("Total String : ${listStringCount.length}"),
+        ],
+      ),
+    );
+  }
+
+  Flexible buildShowString() {
+    return Flexible(
+      child: SizedBox(
+          height: 100,
+          child: Text(strShow, style: TextStyle(fontSize: 20))),
+    );
+  }
+
+  Expanded buildTopimage() {
+    return Expanded(
+        flex: 3,
+        child: Container(
+          padding: EdgeInsets.all(10),
+          child: Column(
+            children: [
+              Expanded(child: Image.asset('assets/images/pixelsora.png',fit: BoxFit.scaleDown)),
+              SizedBox(height: 20),
+              Text(
+                "마법의 소라에몬",
+                style: TextStyle(fontSize: 30),
+              )
+            ],
           ),
         ));
   }
