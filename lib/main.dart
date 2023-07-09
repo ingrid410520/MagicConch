@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => AppHome(),
         '/anyword' : (context) => Screen_Anyword(),
         '/anyword_setting' : (context) => Screen_AnywordSetting(),
-        '/testfiled' : (context) => Testfield(),
+        '/testfiled' : (context) => TestFeild(),
 
       },
       initialRoute: '/home',
