@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:magic_conch/Data/DataManager.dart';
 import 'package:magic_conch/Function/Build_MyScreen.dart';
 import '../Function/Build_MyButton_ScreenBack.dart';
-import '../Function/File_Function.dart';
-
-AnswerManager vAnswerManager = AnswerManager();
 
 List listStringCount = [];
 Map mapAnswer = {};
@@ -70,20 +67,20 @@ class _Screen_AnywordState extends State<Screen_Anyword> {
 
   Flexible buildDebug_CountAnyword() {
     return Flexible(
-            child: Visibility(
-              visible: true,
-              child: Column(
-                children: [
-                  Text(
-                    "Total String : ${listStringCount.length}",
-                  ),
-                  Container(
-                    child: Text("$listStringCount"),
-                  )
-                ],
-              ),
+      child: Visibility(
+        visible: true,
+        child: Column(
+          children: [
+            Text(
+              "Total String : ${listStringCount.length}",
             ),
-          );
+            Container(
+              child: Text("$listStringCount"),
+            )
+          ],
+        ),
+      ),
+    );
   }
 
   Flexible buildPlayButton() {
@@ -121,8 +118,7 @@ class _Screen_AnywordState extends State<Screen_Anyword> {
   Flexible buildShowString() {
     return Flexible(
       child: SizedBox(
-          height: 100,
-          child: Text(strShow, style: TextStyle(fontSize: 20))),
+          height: 100, child: Text(strShow, style: TextStyle(fontSize: 20))),
     );
   }
 
@@ -133,7 +129,9 @@ class _Screen_AnywordState extends State<Screen_Anyword> {
           padding: EdgeInsets.all(10),
           child: Column(
             children: [
-              Expanded(child: Image.asset('assets/images/pixelsora.png',fit: BoxFit.scaleDown)),
+              Expanded(
+                  child: Image.asset('assets/images/pixelsora.png',
+                      fit: BoxFit.scaleDown)),
               SizedBox(height: 20),
               Text(
                 "마법의 소라에몬",

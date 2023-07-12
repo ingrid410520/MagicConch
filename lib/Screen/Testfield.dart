@@ -1,13 +1,11 @@
-import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 //import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:magic_conch/Function/Build_MyScreen.dart';
-//import 'package:magic_conch/Function/File_Function.dart';
+import 'package:magic_conch/Function/File_Function.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../Function/Build_MyButton_ScreenBack.dart';
+//import '../Function/Build_MyButton_ScreenBack.dart';
 
 class TestFeild extends StatefulWidget {
   const TestFeild({super.key});
@@ -18,6 +16,11 @@ class TestFeild extends StatefulWidget {
 
 class _TestFeildState extends State<TestFeild> {
   TextEditingController _textEditingController = TextEditingController();
+  TextEditingController _keyEdit_write = TextEditingController();
+  TextEditingController _valEdit_write = TextEditingController();
+  TextEditingController _keyEdit_read = TextEditingController();
+  TextEditingController _valEdit_read = TextEditingController();
+
   late SharedPreferences _prefs; // SharedPreferences 객체
 
   @override
@@ -49,6 +52,14 @@ class _TestFeildState extends State<TestFeild> {
   }
 
   Widget build(BuildContext context) {
+    return
+        //File_Test1()
+        File_Test2()
+        //File_Test3()
+        ;
+  }
+
+  BuildMyScreen File_Test1() {
     return BuildMyScreen(
       strTitle: "Test Field",
       widBody: Padding(
@@ -81,4 +92,57 @@ class _TestFeildState extends State<TestFeild> {
       ),
     );
   }
+
+  BuildMyScreen File_Test2() => BuildMyScreen(
+      strTitle: "Test Field2",
+      widBody: Padding(
+        padding: EdgeInsets.all(10),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              // Save Data
+              TextField(
+                controller: _keyEdit_write,
+                decoration: InputDecoration(hintText: 'Key'),
+              ),
+              TextField(
+                controller: _valEdit_write,
+                decoration: InputDecoration(hintText: 'Value'),
+              ),
+              ElevatedButton(
+                  child: Text("Save"),
+                  onPressed: () {
+                    setState(() {
+                      FileManager()
+                          .write(_keyEdit_write.text, _valEdit_write.text);
+                    });
+                  },
+              ),
+
+              // Load Data
+              SizedBox(height: 20),
+              TextField(
+                controller: _keyEdit_read,
+                decoration: InputDecoration(hintText: 'Key'),
+              ),
+              ElevatedButton(
+                  child: Text("Load"),
+                  onPressed: () {
+                    Future<String> _val =
+                        FileManager().read(_keyEdit_read.text);
+                    setState(() {
+                      _val.then((value) {
+                        _valEdit_read.text = value;
+                      });
+                    });
+                  },
+              ),
+              TextField(
+                controller: _valEdit_read,
+              ),
+            ],
+          ),
+        ),
+      ));
 }
