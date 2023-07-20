@@ -8,7 +8,9 @@ if (localPropertiesFile.exists()) {
 
 def flutterRoot = localProperties.getProperty('flutter.sdk')
 if (flutterRoot == null) {
-    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+    throw new FileNotFoundException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+    //FileNotFoundException
+    //GradleException
 }
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
@@ -69,6 +71,9 @@ android {
     }
 
     allprojects {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        }
         repositories {
             google()
             mavenCentral()
