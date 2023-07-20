@@ -4,17 +4,25 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:magic_conch/Screen/Anyword.dart';
 import 'package:magic_conch/Screen/AnywordSetting.dart';
-import 'package:magic_conch/Screen/Testfield.dart';
-
+import 'package:magic_conch/Screen/Screen_ADtest.dart';
 import 'Screen/Home.dart';
 
 void main()
 {
+  WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
+
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -28,7 +36,8 @@ class MyApp extends StatelessWidget {
         '/home': (context) => AppHome(),
         '/anyword' : (context) => Screen_Anyword(),
         '/anyword_setting' : (context) => Screen_AnywordSetting(),
-        '/testfiled' : (context) => TestFeild(),
+        //'/testfiled' : (context) => TestFeild(),
+        '/testfiled' : (context) => Screen_ADtest(),
 
       },
       initialRoute: '/home',
@@ -39,5 +48,4 @@ class MyApp extends StatelessWidget {
     // TODO: Initialize Google Mobile Ads SDK
     return MobileAds.instance.initialize();
   }
-
 }
