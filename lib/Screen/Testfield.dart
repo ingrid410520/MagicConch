@@ -1,6 +1,6 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:magic_conch/Data/DataManager.dart';
 import 'package:magic_conch/Function/Build_MyScreen.dart';
 import 'package:magic_conch/Function/File_Function.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,6 +18,7 @@ class _TestFeildState extends State<TestFeild> {
   TextEditingController _valEdit_write = TextEditingController();
   TextEditingController _keyEdit_read = TextEditingController();
   TextEditingController _valEdit_read = TextEditingController();
+  String _TestShow = "None";
 
   late SharedPreferences _prefs; // SharedPreferences 객체
 
@@ -52,9 +53,8 @@ class _TestFeildState extends State<TestFeild> {
   Widget build(BuildContext context) {
     return
         //File_Test1()
-        File_Test2()
-        //File_Test3()
-        ;
+        //File_Test2()
+        File_Test3();
   }
 
   BuildMyScreen File_Test1() {
@@ -109,13 +109,13 @@ class _TestFeildState extends State<TestFeild> {
                 decoration: InputDecoration(hintText: 'Value'),
               ),
               ElevatedButton(
-                  child: Text("Save"),
-                  onPressed: () {
-                    setState(() {
-                      FileManager()
-                          .write(_keyEdit_write.text, _valEdit_write.text);
-                    });
-                  },
+                child: Text("Save"),
+                onPressed: () {
+                  setState(() {
+                    FileManager()
+                        .write(_keyEdit_write.text, _valEdit_write.text);
+                  });
+                },
               ),
 
               // Load Data
@@ -125,16 +125,15 @@ class _TestFeildState extends State<TestFeild> {
                 decoration: InputDecoration(hintText: 'Key'),
               ),
               ElevatedButton(
-                  child: Text("Load"),
-                  onPressed: () {
-                    Future<String> _val =
-                        FileManager().read(_keyEdit_read.text);
-                    setState(() {
-                      _val.then((value) {
-                        _valEdit_read.text = value;
-                      });
+                child: Text("Load"),
+                onPressed: () {
+                  Future<String> _val = FileManager().read(_keyEdit_read.text);
+                  setState(() {
+                    _val.then((value) {
+                      _valEdit_read.text = value;
                     });
-                  },
+                  });
+                },
               ),
               TextField(
                 controller: _valEdit_read,
@@ -143,4 +142,55 @@ class _TestFeildState extends State<TestFeild> {
           ),
         ),
       ));
+
+  BuildMyScreen File_Test3() {
+    return BuildMyScreen(
+        strTitle: "Test3 - DataManager",
+        widBody: Padding(
+          padding: EdgeInsets.all(2),
+          child: Center(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                child: Text("Init"),
+                onPressed: () {
+                  setState(() {
+                    DataManager().Init_Anyword();
+                    _TestShow = DataManager().getAnyword().keys.toString();
+                  });
+                },
+              ),
+              ElevatedButton(
+                child: Text("DataManager - SaveAnyword"),
+                onPressed: () {
+                  setState(() {
+                    DataManager().Save_Anyword();
+                  });
+                },
+              ),
+              //Text("data"),
+              ElevatedButton(
+                child: Text("DataManager - LoadAnyword"),
+                onPressed: () {
+                  setState(() {
+                    DataManager().Load_Anyword();
+                    _TestShow = DataManager().TestString;
+                  });
+                },
+              ),
+              SizedBox(height: 10),
+              ElevatedButton(
+                child: Text("Reset Text"),
+                onPressed: () {
+                  setState(() {
+                    _TestShow = "none";
+                  });
+                },
+              ),
+              Text(_TestShow),
+            ],
+          )),
+        ));
+  }
 }

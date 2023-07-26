@@ -1,15 +1,61 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
 import 'package:magic_conch/Data/BaseAnswer.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+String Data_Filename = "myData";
+String key_Anyword = "Anyword";
 
 class DataManager {
+  // ↓↓↓ Singleton pattern !!
   DataManager.construction() {}
   static final DataManager _instance = DataManager.construction();
-  static Map mapLoadAnyword = mapBaseAnswer;
-  String _path = "";
 
   factory DataManager() {
     return _instance;
   }
+  // ↑↑↑ Singleton pattern !!
+
+  late SharedPreferences _prefs; // SharedPreferences 객체
+  static late Data_Anyword gData_Anyword;
+  Map getAnyword() => gData_Anyword.mapAnswer;
+
+  String TestString = "";
+
+  void Init_Anyword() {
+    gData_Anyword = new Data_Anyword();
+    gData_Anyword.InitBase();
+  }
+
+  Future<bool> Load_Anyword() async {
+    if (_prefs == null) {
+      _prefs = await SharedPreferences.getInstance(); // SharedPreferences 초기화
+    }
+
+    if (_prefs.containsKey(key_Anyword)) {
+      // 노가다..?
+      Map<String, Unit_Group> decodemap = jsonDecode(_prefs.getString(key_Anyword)!);
+      gData_Anyword.mapAnswer = decodemap;
+      TestString = gData_Anyword.mapAnswer.keys.toString();
+      return true;
+    }
+
+    return false;
+  }
+
+  void Save_Anyword() async{
+    // if (_prefs == null) {
+    //   _prefs = await SharedPreferences.getInstance(); // SharedPreferences 초기화
+    // }
+    _prefs = await SharedPreferences.getInstance();
+    _prefs.setString(key_Anyword, jsonEncode(gData_Anyword.mapAnswer)); // 이거 안됨 class 말고 맵을 로드.
+  }
+
+/////////////////// 기존 ///////////////////
+  static Map mapLoadAnyword = mapBaseAnswer;
+  String _path = "";
 
   void LoadData() async {
     final directory = await getApplicationDocumentsDirectory();

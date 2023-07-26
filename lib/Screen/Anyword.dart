@@ -122,17 +122,18 @@ class _Screen_AnywordState extends State<Screen_Anyword> {
     );
   }
 
-  Expanded buildTopimage() {
-    return Expanded(
+  Widget buildTopimage() {
+    return Flexible(
         flex: 3,
         child: Container(
           padding: EdgeInsets.all(10),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Expanded(
                   child: Image.asset('assets/images/pixelsora.png',
                       fit: BoxFit.scaleDown)),
-              SizedBox(height: 20),
+              SizedBox(height: 20, width: double.maxFinite),
               Text(
                 "마법의 소라에몬",
                 style: TextStyle(fontSize: 30),

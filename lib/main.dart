@@ -6,6 +6,7 @@ import 'package:magic_conch/Screen/Anyword.dart';
 import 'package:magic_conch/Screen/AnywordSetting.dart';
 import 'package:magic_conch/Screen/Screen_ADtest.dart';
 import 'Screen/Home.dart';
+import 'Screen/Testfield.dart';
 
 void main()
 {
@@ -36,8 +37,8 @@ class _MyAppState extends State<MyApp> {
         '/home': (context) => AppHome(),
         '/anyword' : (context) => Screen_Anyword(),
         '/anyword_setting' : (context) => Screen_AnywordSetting(),
-        //'/testfiled' : (context) => TestFeild(),
-        '/testfiled' : (context) => Screen_ADtest(),
+        '/testfiled' : (context) => TestFeild(),
+        //'/testfiled' : (context) => Screen_ADtest(),
 
       },
       initialRoute: '/home',
