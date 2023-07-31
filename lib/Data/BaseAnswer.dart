@@ -1,14 +1,21 @@
 //Data_Anyword gData_Anyword = new Data_Anyword();
 
 class Data_Anyword {
+  String key_GroupShow = "GShow";
+  String key_SentenceUnit = "Answer";
+
   Data_Anyword() {
+    print("Data_Anyword - Construct");
     // Init Base or Load Data
     // InitBase();
   }
 
-  Map<String, Unit_Group> mapAnswer = {};
+  Map<String, dynamic> mapAnswer = {};
 
   void InitBase() {
+    //mapAnswer.addAll(mapBaseAnswer);
+    if (mapAnswer.isNotEmpty) return;
+
     addGroupShow("연애", true);
     addSentenceListunit("연애", [
       [true, "걔도 너 좋아해"],
@@ -157,21 +164,26 @@ class Data_Anyword {
       [true, "이제 제 껍니다 제 마음대로 할 수 있는 겁니다."],
       [true, "로드롤러다!!!"],
     ]);
+
     print(mapAnswer.keys.toString());
+    print(mapAnswer.values.toString());
+  }
+
+  bool isEmpty()
+  {
+    return mapAnswer.isEmpty;
   }
 
   void addGroup(String _strGroup) {
     if (!mapAnswer.containsKey(_strGroup)) {
-      Unit_Group _UnitGroup = Unit_Group(true);
-      mapAnswer[_strGroup] = _UnitGroup;
+      mapAnswer[_strGroup] = {key_GroupShow: true, key_SentenceUnit: List.empty(growable: true)};
     }
   }
 
   void addGroupShow(String _strGroup, bool _bShow) {
     if (!mapAnswer.containsKey(_strGroup)) {
-      print("object Test AddGroup");
-      Unit_Group _UnitGroup = Unit_Group(_bShow);
-      mapAnswer[_strGroup] = _UnitGroup;
+      print("Data_Anyword - AddGroup $_strGroup");
+      mapAnswer[_strGroup] = {key_GroupShow: _bShow, key_SentenceUnit: List.empty(growable: true)};
     }
   }
 
@@ -181,87 +193,141 @@ class Data_Anyword {
     }
   }
 
-  List<Unit_Group> getGroups() => mapAnswer.values.toList();
+  List getGroupsList() {
+    List result = List.empty(growable: true);
+    return mapAnswer.keys.toList();
+  }
 
-  List<Unit_Sentence> getSentences(String _strGroup) =>
-      mapAnswer[_strGroup]!.listSentence;
+  /*Map getGroup(String _strGroupName){
+    return mapAnswer[_strGroupName];
+  }*/
 
-  void setShow_Group(String _strGroup, bool _bShow) =>
-      mapAnswer[_strGroup]!.bShow = _bShow;
+  bool getGroup_Show(String _strGroup) {
+    return mapAnswer[_strGroup][key_GroupShow];
+  }
 
-  void SetShow_Sentence(String _strGroup, String _strSentence, bool _bShow) {
-    Unit_Group _temp = mapAnswer[_strGroup]!;
-    _temp.listSentence.forEach((element) {
-      if (element.strSentence == _strSentence) {
-        element.bShow = _bShow;
+  bool setGroup_Show(String _strGroup, bool _bShow) {
+    if (!mapAnswer.containsKey(_strGroup)) {
+      mapAnswer[_strGroup][key_GroupShow] = _bShow;
+      return true;
+    }
+    return false;
+  }
+
+  bool addSentence(String _strGroup, String _strSentence) {
+    if (mapAnswer.containsKey(_strGroup)) {
+      List temp = mapAnswer[_strGroup][key_SentenceUnit];
+      temp.add([true, _strSentence]);
+      return true;
+    }
+    return false;
+  }
+
+  bool addSentenceUnit(String _strGroup, bool _bShow, String _strSentence) {
+    if (mapAnswer.containsKey(_strGroup)) {
+      List temp = mapAnswer[_strGroup][key_SentenceUnit];
+      temp.add([_bShow, _strSentence]);
+      return true;
+    }
+    return false;
+  }
+
+  bool addSentenceListunit(String _strGroup, List _listunitSentence) {
+    if (mapAnswer.containsKey(_strGroup)) {
+      print("Data_Anyword - addSentenceListunit $_strGroup");
+      List temp = mapAnswer[_strGroup][key_SentenceUnit];
+      temp.addAll(_listunitSentence);
+      //mapAnswer.update(_strGroup, (value) => value.addAll(_listunitSentence));
+      return true;
+    }
+    return false;
+  }
+
+  bool delSentence(String _strGroup, String _strSentence) {
+    if (mapAnswer.containsKey(_strGroup)) {
+      List temp = mapAnswer[_strGroup][key_SentenceUnit];
+      for (int i = 0; i < temp.length; i++) {
+        List unit = temp[i];
+        if (unit[1] == _strSentence) {
+          temp.removeAt(i);
+          mapAnswer.update(_strGroup, (value) => temp);
+          return true;
+        }
       }
+    }
+    return false;
+  }
+
+  bool delSentenceIndex(String _strGroup, int _index) {
+    if (mapAnswer.containsKey(_strGroup)) {
+      List temp = mapAnswer[_strGroup][key_SentenceUnit];
+      temp.removeAt(_index);
+      mapAnswer.update(_strGroup, (value) => temp);
+      return true;
+    }
+    return false;
+  }
+
+  List getSentenceUnit(String _strGroup) {
+    if (mapAnswer.containsKey(_strGroup)) {
+      return mapAnswer[_strGroup][key_SentenceUnit];
+    }
+    return [];
+  }
+
+  List getSentences() {
+    List result = List.empty(growable: true);
+    mapAnswer.forEach((key, value) {
+      List temp = value[key_SentenceUnit];
+      temp.reduce((value, element) => result.add(element[1]));
     });
+
+    return result;
   }
 
-  void addSentence(String _strGroup, String _strSentence) {
-    if (mapAnswer.containsKey(_strGroup)) {
-      Unit_Group _temp = mapAnswer[_strGroup]!;
-      _temp.addSentence(_strSentence);
-    }
-  }
-
-  void addSentenceList(String _strGroup, List _listSentence) {
-    if (mapAnswer.containsKey(_strGroup)) {
-      Unit_Group _temp = mapAnswer[_strGroup]!;
-      _listSentence.forEach((element) {
-        _temp.listSentence.add(new Unit_Sentence(true, element));
+  List getSentences_ShowList() {
+    List result = List.empty(growable: true);
+    mapAnswer.forEach((key, value) {
+      List temp = value[key_SentenceUnit];
+      temp.reduce((value, element) {
+        if (element[0] == true) {
+          result.add(element[1]);
+        }
       });
-    }
+    });
+
+    return result;
   }
 
-  void addSentenceListunit(String _strGroup, List _listunitSentence) {
+  bool SetShow_Sentence(String _strGroup, String _strSentence, bool _bShow) {
     if (mapAnswer.containsKey(_strGroup)) {
-      Unit_Group _temp = mapAnswer[_strGroup]!;
-      _listunitSentence.forEach((element) {
-        _temp.listSentence.add(new Unit_Sentence(element[0], element[1]));
-      });
-    }
-  }
-
-  void delSentence(String _strGroup, String _strSentence) {
-    if (mapAnswer.containsKey(_strGroup)) {
-      Unit_Group _temp = mapAnswer[_strGroup]!;
-      _temp.listSentence.forEach((element) {
-        if (element.strSentence == _strSentence) {
-          _temp.listSentence.remove(element);
+      (mapAnswer[_strGroup][key_SentenceUnit]).forEach((element) {
+        if (element[1] == _strSentence) {
+          element[0] = _bShow;
+          return true;
         }
       });
     }
+    return false;
+  }
+
+  bool setShow_SentenceIndex(String _strGroup, int _index, bool _bShow) {
+    if (mapAnswer.containsKey(_strGroup)) {
+      List temp = mapAnswer[key_SentenceUnit];
+
+      if (temp.length > _index) {
+        temp[_index][0] = _bShow;
+        return true;
+      }
+      return false;
+    }
+    return false;
   }
 }
 
-class Unit_Group {
-  bool bShow = true;
-  List<Unit_Sentence> listSentence = List.empty(growable: true);
-
-  Unit_Group(
-    bool _bShow,
-  ) {
-    bShow = _bShow;
-  }
-
-  void addSentence(String _strSentence) {
-    listSentence.add(new Unit_Sentence(true, _strSentence));
-  }
-}
-
-class Unit_Sentence {
-  bool bShow = true;
-  String strSentence = "";
-
-  Unit_Sentence(bool _bShow, _strSentence)
-      : bShow = _bShow,
-        strSentence = _strSentence;
-}
-
-Map mapBaseAnswer = {
+Map<String, dynamic> mapBaseAnswer = {
   "연애": {
-    "bShow": true,
+    "GShow": true,
     "Answer": [
       [true, "걔도 너 좋아해"],
       [false, "거울 보고 다시 생각해 봐"],
@@ -275,7 +341,7 @@ Map mapBaseAnswer = {
     ]
   },
   "고민": {
-    "bShow": false,
+    "GShow": false,
     "Answer": [
       [true, "줄건 줘"],
       [false, "인내심은 일단 갖추고 볼 일이다"],
@@ -313,7 +379,7 @@ Map mapBaseAnswer = {
     ]
   },
   "음식": {
-    "bShow": true,
+    "GShow": true,
     "Answer": [
       [true, "한식"],
       [true, "중식"],
@@ -323,7 +389,7 @@ Map mapBaseAnswer = {
     ]
   },
   "선택": {
-    "bShow": false,
+    "GShow": false,
     "Answer": [
       [true, "질러라"],
       [true, "아껴야 잘 산다"],
@@ -356,7 +422,7 @@ Map mapBaseAnswer = {
     ]
   },
   "숫자": {
-    "bShow": false,
+    "GShow": false,
     "Answer": [
       [true, "1"],
       [true, "2"],
@@ -374,7 +440,7 @@ Map mapBaseAnswer = {
     ]
   },
   "날짜": {
-    "bShow": true,
+    "GShow": true,
     "Answer": [
       [true, "어제"],
       [true, "지금 당장"],
@@ -386,7 +452,7 @@ Map mapBaseAnswer = {
     ]
   },
   "인물": {
-    "bShow": false,
+    "GShow": false,
     "Answer": [
       [true, "애기"],
       [true, "초딩"],
@@ -405,7 +471,7 @@ Map mapBaseAnswer = {
     ]
   },
   "기타": {
-    "bShow": false,
+    "GShow": false,
     "Answer": [
       [true, "게살버거의 비법은 내꺼야"],
       [true, "이제 제 껍니다 제 마음대로 할 수 있는 겁니다."],

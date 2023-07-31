@@ -2,12 +2,13 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:magic_conch/Data/DataManager.dart';
 import 'package:magic_conch/Function/Build_MyScreen.dart';
 import 'package:magic_conch/Function/Button_Homemenu.dart';
 
-
 class AppHome extends StatefulWidget {
   const AppHome({Key? key}) : super(key: key);
+
   @override
   State<AppHome> createState() => _AppHomeState();
 }
@@ -19,6 +20,7 @@ class _AppHomeState extends State<AppHome> {
   // TODO: replace this test ad unit with your own ad unit.
   final AdSize adSize = AdSize(height: 50, width: 300);
   final adUnitId = 'ca-app-pub-3940256099942544/6300978111';
+
   //final adUnitId = 'ca-app-pub-3940256099942544/2934735716';
 
   // final adUnitId = Platform.isAndroid
@@ -59,8 +61,19 @@ class _AppHomeState extends State<AppHome> {
   @override
   Widget build(BuildContext context) {
     loadAd();
-    MobileAds.instance.updateRequestConfiguration(
-        RequestConfiguration(testDeviceIds: ['33BE2250B43518CCDA7DE426D04EE231']));
+    Future<bool> bDataLoad_Anyword = DataManager().Load_Anyword();
+    bDataLoad_Anyword.then((value) {
+      if (value) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("Load done - Anyword")));
+      } else {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("Load fail - Anyword Initialized")));
+      }
+    }).catchError((error) => print('error: $error'));
+
+    MobileAds.instance.updateRequestConfiguration(RequestConfiguration(
+        testDeviceIds: ['33BE2250B43518CCDA7DE426D04EE231']));
 
     return BuildMyScreen(
       strTitle: '마법의 소라에몬 : 결정장애 브레이커',
@@ -126,11 +139,10 @@ class _AppHomeState extends State<AppHome> {
     }
     return Flexible(
         child: Container(
-          color: Colors.white,
-              width: _bannerAd!.size.width.toDouble(),
-              height: _bannerAd!.size.height.toDouble(),
-              child: AdWidget(ad: _bannerAd!),
-            )
-    );
+      color: Colors.white,
+      width: _bannerAd!.size.width.toDouble(),
+      height: _bannerAd!.size.height.toDouble(),
+      child: AdWidget(ad: _bannerAd!),
+    ));
   }
 }

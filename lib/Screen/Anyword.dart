@@ -4,15 +4,15 @@ import 'package:magic_conch/Data/DataManager.dart';
 import 'package:magic_conch/Function/Build_MyScreen.dart';
 import '../Function/Build_MyButton_ScreenBack.dart';
 
-List listStringCount = [];
-Map mapAnswer = {};
+//List listStringCount = [];
+//Map mapAnswer = {};
 
 class Screen_Anyword extends StatefulWidget {
   Screen_Anyword({Key? key}) : super(key: key);
 
   // Load Answer list
   //final List listString = vAnswerManager.getAnswer();
-  final List listString = DataManager().GetAnyword_List();
+  //final List listString = DataManager().getDataAnyword().getSentences_ShowList();
 
   @override
   State<Screen_Anyword> createState() => _Screen_AnywordState();
@@ -24,10 +24,6 @@ class _Screen_AnywordState extends State<Screen_Anyword> {
   @override
   void initState() {
     super.initState();
-    listStringCount =
-        List.filled(Screen_Anyword().listString.length, 0, growable: true);
-
-    mapAnswer.addAll(mapAnswer);
   }
 
   Widget build(BuildContext context) {
@@ -58,7 +54,7 @@ class _Screen_AnywordState extends State<Screen_Anyword> {
             buildShowString(),
             buildPlayButton(),
             Flexible(child: Button_Screenback(routename: '/home')),
-            //buildDebug_CountAnyword(),
+            buildDebug_CountAnyword(),
           ],
         ),
       ),
@@ -72,10 +68,10 @@ class _Screen_AnywordState extends State<Screen_Anyword> {
         child: Column(
           children: [
             Text(
-              "Total String : ${listStringCount.length}",
+              "Total String : ${DataManager().getDataAnyword().getSentences_ShowList().length}",
             ),
             Container(
-              child: Text("$listStringCount"),
+              child: Text(" ??? "),
             )
           ],
         ),
@@ -93,15 +89,15 @@ class _Screen_AnywordState extends State<Screen_Anyword> {
               label: Text('Play'),
               onPressed: () {
                 setState(() {
+                  //print("Play!! ");
                   String newString = "";
-                  int maxNum = Screen_Anyword().listString.length;
+                  int maxNum = DataManager().getDataAnyword().getSentences_ShowList().length;
                   int rNum = 0;
                   do {
                     rNum = Random().nextInt(maxNum);
-                    newString = Screen_Anyword().listString[rNum];
+                    newString = DataManager().getDataAnyword().getSentences_ShowList()[rNum];
                   } while (strShow == newString);
                   strShow = newString;
-                  listStringCount[rNum]++;
                 });
               },
             ),
@@ -109,7 +105,6 @@ class _Screen_AnywordState extends State<Screen_Anyword> {
           SizedBox(
             height: 10,
           ),
-          Text("Total String : ${listStringCount.length}"),
         ],
       ),
     );
@@ -126,6 +121,7 @@ class _Screen_AnywordState extends State<Screen_Anyword> {
     return Flexible(
         flex: 3,
         child: Container(
+          //color: Colors.deepOrange,
           padding: EdgeInsets.all(10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -134,10 +130,13 @@ class _Screen_AnywordState extends State<Screen_Anyword> {
                   child: Image.asset('assets/images/pixelsora.png',
                       fit: BoxFit.scaleDown)),
               SizedBox(height: 20, width: double.maxFinite),
-              Text(
-                "마법의 소라에몬",
-                style: TextStyle(fontSize: 30),
-              )
+              FittedBox(
+                fit: BoxFit.fitWidth,
+                child: Text(
+                  "마법의 소라에몬",
+                  style: TextStyle(fontSize: 150,),
+                ),
+              ),
             ],
           ),
         ));

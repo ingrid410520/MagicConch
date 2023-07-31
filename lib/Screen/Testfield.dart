@@ -54,7 +54,26 @@ class _TestFeildState extends State<TestFeild> {
     return
         //File_Test1()
         //File_Test2()
-        File_Test3();
+        //File_Test3()
+        Datamanager_Test();
+  }
+
+  BuildMyScreen Datamanager_Test() {
+    return BuildMyScreen(
+        strTitle: "strTitle",
+        widBody: Padding(
+          padding: EdgeInsets.all(5),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text(DataManager().getDataAnyword().getGroupsList().toString()),
+                //SizedBox(height: 10,),
+                Text(DataManager().getDataAnyword().getSentences_ShowList().toString()),
+              ],
+            ),
+          ),
+        ));
   }
 
   BuildMyScreen File_Test1() {
@@ -156,8 +175,7 @@ class _TestFeildState extends State<TestFeild> {
                 child: Text("Init"),
                 onPressed: () {
                   setState(() {
-                    DataManager().Init_Anyword();
-                    _TestShow = DataManager().getAnyword().keys.toString();
+                    DataManager().Init_BaseAnyword();
                   });
                 },
               ),
