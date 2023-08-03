@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:magic_conch/Data/DataManager.dart';
@@ -67,9 +69,84 @@ class _TestFeildState extends State<TestFeild> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text(DataManager().getDataAnyword().getGroupsList().toString()),
-                //SizedBox(height: 10,),
-                Text(DataManager().getDataAnyword().getSentences_ShowList().toString()),
+                Flexible(
+                  flex: 4,
+                  child: Container(
+                    color: Colors.blueGrey,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          MaterialButton(
+                              child: Text("Load"),
+                              onPressed: () {
+                                setState(() {});
+                              }),
+                          MaterialButton(
+                              child: Text("Init"),
+                              onPressed: () {
+                                setState(() {});
+                              }),
+                          Container(
+                            width: 400,
+                            height: 150,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                TextField(
+                                  decoration: InputDecoration(
+                                    label: Text("Insert Group"),
+                                  ),
+                                ),
+                                TextField(
+                                  decoration: InputDecoration(
+                                    label: Text("Insert Sentece"),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          MaterialButton(
+                              child: Text("Add Group"),
+                              onPressed: () {
+                                setState(() {});
+                              }),
+                          MaterialButton(
+                              child: Text("Add Sentence"),
+                              onPressed: () {
+                                setState(() {});
+                              }),
+                          MaterialButton(
+                              child: Text("Save"),
+                              onPressed: () {
+                                setState(() {});
+                              })
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Flexible(
+                  flex: 6,
+                  child: Padding(
+                    padding: EdgeInsets.all(5),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(DataManager()
+                            .getDataAnyword()
+                            .getGroupsList()
+                            .toString()),
+                        //SizedBox(height: 10,),
+                        Text(DataManager()
+                            .getDataAnyword()
+                            .getSentences_ShowList()
+                            .toString()),
+                      ],
+                    ),
+                  ),
+                )
               ],
             ),
           ),

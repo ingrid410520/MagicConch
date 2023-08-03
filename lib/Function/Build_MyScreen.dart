@@ -7,11 +7,13 @@ class BuildMyScreen extends StatefulWidget {
     required this.strTitle,
     required this.widBody,
     this.action,
+    this.bottom
   });
 
   final String strTitle;
   final Widget widBody;
   final List<Widget>? action;
+  Widget? bottom;
 
   @override
   State<BuildMyScreen> createState() => _BuildMyScreenState();
@@ -27,6 +29,8 @@ class _BuildMyScreenState extends State<BuildMyScreen> {
           actions: widget.action
         ),
         resizeToAvoidBottomInset: false,
-        body: widget.widBody);
+        body: widget.widBody,
+      bottomNavigationBar: widget.bottom,
+    );
   }
 }

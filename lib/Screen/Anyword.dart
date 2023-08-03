@@ -134,7 +134,7 @@ class _Screen_AnywordState extends State<Screen_Anyword> {
                 fit: BoxFit.fitWidth,
                 child: Text(
                   "마법의 소라에몬",
-                  style: TextStyle(fontSize: 150,),
+                  style: TextStyle(fontSize: 30,),
                 ),
               ),
             ],

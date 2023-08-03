@@ -207,10 +207,12 @@ class Data_Anyword {
   }
 
   bool setGroup_Show(String _strGroup, bool _bShow) {
-    if (!mapAnswer.containsKey(_strGroup)) {
+    if (mapAnswer.containsKey(_strGroup)) {
       mapAnswer[_strGroup][key_GroupShow] = _bShow;
+      print("setGroup Show Done $_bShow");
       return true;
     }
+    print("setGroup Show Fail");
     return false;
   }
 
@@ -313,14 +315,17 @@ class Data_Anyword {
 
   bool setShow_SentenceIndex(String _strGroup, int _index, bool _bShow) {
     if (mapAnswer.containsKey(_strGroup)) {
-      List temp = mapAnswer[key_SentenceUnit];
+      List temp = mapAnswer[_strGroup][key_SentenceUnit];
 
       if (temp.length > _index) {
         temp[_index][0] = _bShow;
+        print("setShow_SentenceIndex Done");
         return true;
       }
       return false;
     }
+
+    print("setShow_SentenceIndex Fail");
     return false;
   }
 }

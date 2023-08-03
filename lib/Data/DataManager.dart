@@ -10,7 +10,6 @@ class DataManager {
   // ↓↓↓ Singleton pattern !!
   DataManager._construction() {
     print("DataManager - Construction");
-    _DataAnyword = new Data_Anyword();
     Load_Anyword();
   }
   static final DataManager _instance = DataManager._construction();
@@ -29,7 +28,7 @@ class DataManager {
 
   // Anyword Functions
   //static late Data_Anyword _DataAnyword;
-  static late Data_Anyword _DataAnyword;
+  static late Data_Anyword _DataAnyword = new Data_Anyword();
 
   Data_Anyword getDataAnyword() {
     //Load_Anyword();
@@ -66,6 +65,7 @@ class DataManager {
   void Save_Anyword() async {
     _prefs = await SharedPreferences.getInstance();
     _prefs.setString(key_Anyword, jsonEncode(_DataAnyword.mapAnswer));
+    print("Save_Anyword Done !!");
   }
 
 /////////////////// 기존 ///////////////////
