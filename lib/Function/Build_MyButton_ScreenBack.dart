@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:magic_conch/Data/DataManager.dart';
 
 class ss extends StatefulWidget {
   const ss({Key? key}) : super(key: key);
@@ -19,7 +20,7 @@ class Button_Screenback extends StatefulWidget {
 
   final BuildContext? context;
   final Widget? label;
-  String routename = '/home';
+  String routename = DataManager().Screen_Home;
   ButtonStyle? style;
 
   @override

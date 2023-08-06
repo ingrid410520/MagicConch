@@ -36,7 +36,7 @@ class _Screen_AnywordState extends State<Screen_Anyword> {
               ),
               label: Text("Setting"),
               onPressed: () {
-                Navigator.pushNamed(context, "/anyword_setting");
+                Navigator.pushNamed(context, DataManager().Screen_AnywordSetting);
               })
         ],
         widBody: buildAnywordBody());
@@ -53,7 +53,7 @@ class _Screen_AnywordState extends State<Screen_Anyword> {
             buildTopimage(),
             buildShowString(),
             buildPlayButton(),
-            Flexible(child: Button_Screenback(routename: '/home')),
+            Flexible(child: Button_Screenback(routename: DataManager().Screen_Home)),
             buildDebug_CountAnyword(),
           ],
         ),

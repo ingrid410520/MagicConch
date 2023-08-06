@@ -97,7 +97,7 @@ class _AppHomeState extends State<AppHome> {
                   child: Button_Home(
                       strName: "아무말 대잔치",
                       ButtonFunction: () {
-                        Navigator.pushNamed(context, '/anyword');
+                        Navigator.pushNamed(context, DataManager().Screen_Anyword);
                       }),
                 ),
               ),

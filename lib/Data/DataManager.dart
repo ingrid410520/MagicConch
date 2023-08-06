@@ -12,6 +12,11 @@ class DataManager {
     print("DataManager - Construction");
     Load_Anyword();
   }
+  String Screen_Home = '/home';
+  String Screen_Anyword = '/anyword';
+  String Screen_AnywordSetting = '/anyword_setting';
+  String Screen_Testfiled = '/testfiled';
+
   static final DataManager _instance = DataManager._construction();
 
   factory DataManager() {
@@ -68,29 +73,4 @@ class DataManager {
     print("Save_Anyword Done !!");
   }
 
-/////////////////// 기존 ///////////////////
-  //static Map mapLoadAnyword = mapBaseAnswer;
-/*  String _path = "";
-
-  List GetAnyword_List() {
-    var vMap = mapLoadAnyword;
-
-    List result = List.empty(growable: true);
-
-    if (!vMap.isEmpty) {
-      for (var value in vMap.values) {
-        if (value['bShow'].toString() == "true") {
-          //print("OK");
-          List vData = value['Answer'];
-
-          for (var vSlot in vData) {
-            if (vSlot[0].toString() == "true") {
-              result.add(vSlot[1]);
-            }
-          }
-        }
-      }
-    }
-    return result;
-  }*/
 }

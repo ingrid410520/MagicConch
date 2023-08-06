@@ -22,6 +22,10 @@ class _TestFeildState extends State<TestFeild> {
   TextEditingController _valEdit_read = TextEditingController();
   String _TestShow = "None";
 
+  TextEditingController _TextGroup = TextEditingController();
+  TextEditingController _TextSentence = TextEditingController();
+  String _strDebugMsg = "None";
+
   late SharedPreferences _prefs; // SharedPreferences 객체
 
   @override
@@ -74,19 +78,39 @@ class _TestFeildState extends State<TestFeild> {
                   child: Container(
                     color: Colors.blueGrey,
                     child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           MaterialButton(
                               child: Text("Load"),
                               onPressed: () {
-                                setState(() {});
+                                setState(() {
+                                  Future<bool> result =
+                                      DataManager().Load_Anyword();
+                                  result.then(
+                                    (value) {
+                                      if (value!) {
+                                        _strDebugMsg = "Load done";
+                                      } else {
+                                        _strDebugMsg = "Load fail Init";
+                                      }
+                                    },
+                                  ).catchError((error) {
+                                    print("Load Error = $error");
+                                  }).whenComplete(
+                                    () {},
+                                  );
+                                });
                               }),
                           MaterialButton(
                               child: Text("Init"),
                               onPressed: () {
-                                setState(() {});
+                                setState(() {
+                                  DataManager().getDataAnyword().InitBase();
+                                  _strDebugMsg = "Init";
+                                });
                               }),
                           Container(
                             width: 400,
@@ -98,11 +122,13 @@ class _TestFeildState extends State<TestFeild> {
                                   decoration: InputDecoration(
                                     label: Text("Insert Group"),
                                   ),
+                                  controller: _TextGroup,
                                 ),
                                 TextField(
                                   decoration: InputDecoration(
                                     label: Text("Insert Sentece"),
                                   ),
+                                  controller: _TextSentence,
                                 ),
                               ],
                             ),
@@ -110,17 +136,24 @@ class _TestFeildState extends State<TestFeild> {
                           MaterialButton(
                               child: Text("Add Group"),
                               onPressed: () {
-                                setState(() {});
+                                setState(() {
+                                  print(_TextGroup.text);
+                                  DataManager().getDataAnyword().addGroup(_TextGroup.text);
+                                });
                               }),
                           MaterialButton(
                               child: Text("Add Sentence"),
                               onPressed: () {
-                                setState(() {});
+                                setState(() {
+                                  DataManager().getDataAnyword().addSentence(_TextGroup.text, _TextSentence.text);
+                                });
                               }),
                           MaterialButton(
                               child: Text("Save"),
                               onPressed: () {
-                                setState(() {});
+                                setState(() {
+                                  DataManager().Save_Anyword();
+                                });
                               })
                         ],
                       ),
@@ -134,15 +167,23 @@ class _TestFeildState extends State<TestFeild> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text(DataManager()
-                            .getDataAnyword()
-                            .getGroupsList()
-                            .toString()),
-                        //SizedBox(height: 10,),
-                        Text(DataManager()
-                            .getDataAnyword()
-                            .getSentences_ShowList()
-                            .toString()),
+                        Text(_strDebugMsg),
+                        Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(DataManager()
+                                  .getDataAnyword()
+                                  .getGroupsList()
+                                  .toString()),
+                              //SizedBox(height: 10,),
+                              Text(DataManager()
+                                  .getDataAnyword()
+                                  .getSentences_ShowList()
+                                  .toString()),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -150,7 +191,15 @@ class _TestFeildState extends State<TestFeild> {
               ],
             ),
           ),
-        ));
+        ),
+      bottom: BackButton(onPressed: (){
+        if (Navigator.canPop(context)) {
+          Navigator.pop(context);
+        } else {
+          Navigator.popAndPushNamed(context, DataManager().Screen_Home);
+        }
+      }),
+    );
   }
 
   BuildMyScreen File_Test1() {
@@ -217,7 +266,7 @@ class _TestFeildState extends State<TestFeild> {
               // Load Data
               SizedBox(height: 20),
               TextField(
-                controller: _keyEdit_read,
+                controller: _TextGroup,
                 decoration: InputDecoration(hintText: 'Key'),
               ),
               ElevatedButton(

@@ -1,8 +1,11 @@
 //Data_Anyword gData_Anyword = new Data_Anyword();
 
+import 'package:get/get.dart';
+
 class Data_Anyword {
   String key_GroupShow = "GShow";
   String key_SentenceUnit = "Answer";
+  bool _bInit = false;
 
   Data_Anyword() {
     print("Data_Anyword - Construct");
@@ -12,8 +15,11 @@ class Data_Anyword {
 
   Map<String, dynamic> mapAnswer = {};
 
+  bool checkInit() => _bInit;
+
   void InitBase() {
     //mapAnswer.addAll(mapBaseAnswer);
+    _bInit = true;
     if (mapAnswer.isNotEmpty) return;
 
     addGroupShow("연애", true);
@@ -169,21 +175,29 @@ class Data_Anyword {
     print(mapAnswer.values.toString());
   }
 
-  bool isEmpty()
-  {
+  bool isEmpty() {
     return mapAnswer.isEmpty;
   }
 
   void addGroup(String _strGroup) {
+    print("BaseAnwer-addGroup : " + _strGroup);
     if (!mapAnswer.containsKey(_strGroup)) {
-      mapAnswer[_strGroup] = {key_GroupShow: true, key_SentenceUnit: List.empty(growable: true)};
+      print("BaseAnwer-addGroup : 1 ");
+      mapAnswer[_strGroup] = {
+        key_GroupShow: true,
+        key_SentenceUnit: List.empty(growable: true)
+      };
+      print("BaseAnwer-addGroup : 2 ");
     }
   }
 
   void addGroupShow(String _strGroup, bool _bShow) {
     if (!mapAnswer.containsKey(_strGroup)) {
       print("Data_Anyword - AddGroup $_strGroup");
-      mapAnswer[_strGroup] = {key_GroupShow: _bShow, key_SentenceUnit: List.empty(growable: true)};
+      mapAnswer[_strGroup] = {
+        key_GroupShow: _bShow,
+        key_SentenceUnit: List.empty(growable: true)
+      };
     }
   }
 
@@ -217,7 +231,11 @@ class Data_Anyword {
   }
 
   bool addSentence(String _strGroup, String _strSentence) {
+    print("addSentence - $_strGroup , $_strSentence");
+
     if (mapAnswer.containsKey(_strGroup)) {
+      print("addSentence - Check Contain $_strGroup");
+
       List temp = mapAnswer[_strGroup][key_SentenceUnit];
       temp.add([true, _strSentence]);
       return true;
@@ -281,7 +299,7 @@ class Data_Anyword {
     List result = List.empty(growable: true);
     mapAnswer.forEach((key, value) {
       List temp = value[key_SentenceUnit];
-      temp.reduce((value, element) => result.add(element[1]));
+      temp.forEach((element) => result.add(element[1]));
     });
 
     return result;
@@ -289,13 +307,24 @@ class Data_Anyword {
 
   List getSentences_ShowList() {
     List result = List.empty(growable: true);
+
     mapAnswer.forEach((key, value) {
-      List temp = value[key_SentenceUnit];
-      temp.reduce((value, element) {
-        if (element[0] == true) {
-          result.add(element[1]);
+      // 1) need check & pass to Group bShow !!
+      print("$key : " + value[key_GroupShow].toString());
+      if (value[key_GroupShow]) {
+        List temp = value[key_SentenceUnit];
+
+        if (temp.isNotEmpty) {
+          // 2) reduce is not same with length
+          temp.forEach((element) {
+            print("getSentences_ShowList - forEach - $key - " +
+                element.toString());
+            if (element[0] == true) {
+              result.add(element[1]);
+            }
+          });
         }
-      });
+      }
     });
 
     return result;
